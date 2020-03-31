@@ -44,11 +44,21 @@ transform = transforms.Compose([
 
 criterion = nn.CrossEntropyLoss()
 
+def recursion_change_bn(module):
+    if isinstance(module, torch.nn.BatchNorm2d):
+        module.track_running_stats = 1
+    else:
+        for i, (name, module1) in enumerate(module._modules.items()):
+            module1 = recursion_change_bn(module1)
+    return module
 
 def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
     net1 = torch.load("../models/{}.pth".format(nnName))
     optimizer1 = optim.SGD(net1.parameters(), lr=0, momentum=0)
-    net1.cuda(CUDA_DEVICE)
+    model = net1['net']
+    for i, (name, module) in enumerate(model._modules.items()):
+        module = recursion_change_bn(model)
+    model.cuda(CUDA_DEVICE)
 
     if dataName != "Uniform" and dataName != "Gaussian":
         testsetout = torchvision.datasets.ImageFolder("../data/{}".format(dataName), transform=transform)
