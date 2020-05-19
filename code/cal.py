@@ -67,7 +67,7 @@ def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
 
     transform_test = transforms.Compose([transforms.Resize(512), transforms.ToTensor()])
 
-    testsetout = torchvision.datasets.ImageFolder("/home/yoon/jyk416/odin-pytorch/data/testsetout/{}".format(dataName), transform=transform_test)
+    testsetout = torchvision.datasets.ImageFolder("/home/yoon/jyk416/odin-pytorch/data/{}".format(dataName), transform=transform_test)
     testloaderOut = torch.utils.data.DataLoader(testsetout, batch_size=1, shuffle=False, num_workers=2)
 
     # if dataName != "Uniform" and dataName != "Gaussian":
