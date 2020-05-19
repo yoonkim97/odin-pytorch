@@ -53,7 +53,7 @@ def recursion_change_bn(module):
     return module
 
 def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
-    checkpoint = torch.load("../models/{}.pth.tar".formate(nnName))
+    checkpoint = torch.load("../models/{}.pth.tar".format(nnName))
     net1 = checkpoint['model']
     optimizer1 = optim.SGD(net1.parameters(), lr=0, momentum=0)
     for i, (name, module) in enumerate(net1._modules.items()):
