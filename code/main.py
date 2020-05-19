@@ -26,9 +26,9 @@ import cal as c
 
 parser = argparse.ArgumentParser(description='Pytorch Detecting Out-of-distribution examples in neural networks')
 
-parser.add_argument('--nn', default="densenet10", type=str,
+parser.add_argument('--nn', default="checkpoint", type=str,
                     help='neural network name and training set')
-parser.add_argument('--out_dataset', default="Imagenet", type=str,
+parser.add_argument('--out_dataset', default="test", type=str,
                     help='out-of-distribution dataset')
 parser.add_argument('--magnitude', default=0.0014, type=float,
                     help='perturbation magnitude')
