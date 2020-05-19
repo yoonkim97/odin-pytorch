@@ -19,6 +19,7 @@ import time
 from scipy import misc
 import calMetric as m
 import calData as d
+from densenet import DenseNet3
 
 # CUDA_DEVICE = 0
 
@@ -44,6 +45,9 @@ transform = transforms.Compose([
 
 criterion = nn.CrossEntropyLoss()
 
+def DenseNetBC_50_12():
+    return DenseNet3(depth=50, num_classes=2, growth_rate=12, reduction=0.5, bottleneck=True, dropRate=0.2)
+
 def recursion_change_bn(module):
     if isinstance(module, torch.nn.BatchNorm2d):
         module.track_running_stats = 1
@@ -53,12 +57,13 @@ def recursion_change_bn(module):
     return module
 
 def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
+    model = DenseNetBC_50_12()
     checkpoint = torch.load("../models/{}.pth.tar".format(nnName))
-    net1 = checkpoint['state_dict']
-    optimizer1 = optim.SGD(net1.parameters(), lr=0, momentum=0)
-    for i, (name, module) in enumerate(net1._modules.items()):
-        module = recursion_change_bn(net1)
-    net1.cuda(CUDA_DEVICE)
+    model.load_state_dict(checkpoint['state_dict'])
+    optimizer1 = optim.SGD(model.parameters(), lr=0, momentum=0)
+    for i, (name, module) in enumerate(model._modules.items()):
+        module = recursion_change_bn(model)
+    model.cuda(CUDA_DEVICE)
 
     transform_test = transforms.Compose([transforms.Resize(512), transforms.ToTensor()])
 
@@ -96,4 +101,4 @@ def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
     #     d.testData(net1, criterion, CUDA_DEVICE, testloaderIn, testloaderOut, nnName, dataName, epsilon, temperature)
     #     m.metric(nnName, dataName)
 
-    d.testData(net1, criterion, CUDA_DEVICE, testloaderIn, testloaderOut, nnName, epsilon, temperature)
+    d.testData(model, criterion, CUDA_DEVICE, testloaderIn, testloaderOut, nnName, epsilon, temperature)
