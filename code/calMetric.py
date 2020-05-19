@@ -24,18 +24,23 @@ def tpr95(name):
     # calculate the falsepositive error when tpr is 95%
     # calculate baseline
     T = 1
-    cifar = np.loadtxt('./softmax_scores/confidence_Base_In.txt', delimiter=',')
+    baseIn = np.loadtxt('./softmax_scores/confidence_Base_In.txt', delimiter=',')
     other = np.loadtxt('./softmax_scores/confidence_Base_Out.txt', delimiter=',')
-    if name == "CIFAR-10":
-        start = 0.1
+    # if name == "CIFAR-10":
+    #     start = 0.1
+    #     end = 1
+    # if name == "CIFAR-100":
+    #     start = 0.01
+    #     end = 1
+
+    if name == "Healthy Chest X-Rays(Gender)":
+        start = 0.5
         end = 1
-    if name == "CIFAR-100":
-        start = 0.01
-        end = 1
+
     gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
-    X1 = cifar[:, 2]
+    X1 = baseIn[:, 2]
     total = 0.0
     fpr = 0.0
     for delta in np.arange(start, end, gap):
@@ -48,18 +53,21 @@ def tpr95(name):
 
     # calculate our algorithm
     T = 1000
-    cifar = np.loadtxt('./softmax_scores/confidence_Our_In.txt', delimiter=',')
+    ourIn = np.loadtxt('./softmax_scores/confidence_Our_In.txt', delimiter=',')
     other = np.loadtxt('./softmax_scores/confidence_Our_Out.txt', delimiter=',')
-    if name == "CIFAR-10":
-        start = 0.1
-        end = 0.12
-    if name == "CIFAR-100":
-        start = 0.01
-        end = 0.0104
+    # if name == "CIFAR-10":
+    #     start = 0.1
+    #     end = 0.12
+    # if name == "CIFAR-100":
+    #     start = 0.01
+    #     end = 0.0104
+    if name == "Healthy Chest X-Rays(Gender)":
+        start = 0.5
+        end = 0.52
     gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
-    X1 = cifar[:, 2]
+    X1 = ourIn[:, 2]
     total = 0.0
     fpr = 0.0
     for delta in np.arange(start, end, gap):
@@ -77,18 +85,21 @@ def auroc(name):
     # calculate the AUROC
     # calculate baseline
     T = 1
-    cifar = np.loadtxt('./softmax_scores/confidence_Base_In.txt', delimiter=',')
+    baseIn = np.loadtxt('./softmax_scores/confidence_Base_In.txt', delimiter=',')
     other = np.loadtxt('./softmax_scores/confidence_Base_Out.txt', delimiter=',')
-    if name == "CIFAR-10":
-        start = 0.1
-        end = 1
-    if name == "CIFAR-100":
-        start = 0.01
+    # if name == "CIFAR-10":
+    #     start = 0.1
+    #     end = 1
+    # if name == "CIFAR-100":
+    #     start = 0.01
+    #     end = 1
+    if name == "Healthy Chest X-Rays(Gender)":
+        start = 0.5
         end = 1
     gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
-    X1 = cifar[:, 2]
+    X1 = baseIn[:, 2]
     aurocBase = 0.0
     fprTemp = 1.0
     for delta in np.arange(start, end, gap):
@@ -99,18 +110,21 @@ def auroc(name):
     aurocBase += fpr * tpr
     # calculate our algorithm
     T = 1000
-    cifar = np.loadtxt('./softmax_scores/confidence_Our_In.txt', delimiter=',')
+    ourIn = np.loadtxt('./softmax_scores/confidence_Our_In.txt', delimiter=',')
     other = np.loadtxt('./softmax_scores/confidence_Our_Out.txt', delimiter=',')
-    if name == "CIFAR-10":
-        start = 0.1
-        end = 0.12
-    if name == "CIFAR-100":
-        start = 0.01
-        end = 0.0104
+    # if name == "CIFAR-10":
+    #     start = 0.1
+    #     end = 0.12
+    # if name == "CIFAR-100":
+    #     start = 0.01
+    #     end = 0.0104
+    if name == "Healthy Chest X-Rays(Gender)":
+        start = 0.5
+        end = 0.52
     gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
-    X1 = cifar[:, 2]
+    X1 = ourIn[:, 2]
     aurocNew = 0.0
     fprTemp = 1.0
     for delta in np.arange(start, end, gap):
@@ -126,20 +140,23 @@ def auprIn(name):
     # calculate the AUPR
     # calculate baseline
     T = 1
-    cifar = np.loadtxt('./softmax_scores/confidence_Base_In.txt', delimiter=',')
+    baseIn = np.loadtxt('./softmax_scores/confidence_Base_In.txt', delimiter=',')
     other = np.loadtxt('./softmax_scores/confidence_Base_Out.txt', delimiter=',')
-    if name == "CIFAR-10":
-        start = 0.1
-        end = 1
-    if name == "CIFAR-100":
-        start = 0.01
+    # if name == "CIFAR-10":
+    #     start = 0.1
+    #     end = 1
+    # if name == "CIFAR-100":
+    #     start = 0.01
+    #     end = 1
+    if name == "Healthy Chest X-Rays(Gender)":
+        start = 0.5
         end = 1
     gap = (end - start) / 100000
     precisionVec = []
     recallVec = []
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
-    X1 = cifar[:, 2]
+    X1 = baseIn[:, 2]
     auprBase = 0.0
     recallTemp = 1.0
     for delta in np.arange(start, end, gap):
@@ -157,18 +174,21 @@ def auprIn(name):
 
     # calculate our algorithm
     T = 1000
-    cifar = np.loadtxt('./softmax_scores/confidence_Our_In.txt', delimiter=',')
+    ourIn = np.loadtxt('./softmax_scores/confidence_Our_In.txt', delimiter=',')
     other = np.loadtxt('./softmax_scores/confidence_Our_Out.txt', delimiter=',')
-    if name == "CIFAR-10":
-        start = 0.1
-        end = 0.12
-    if name == "CIFAR-100":
-        start = 0.01
-        end = 0.0104
+    # if name == "CIFAR-10":
+    #     start = 0.1
+    #     end = 0.12
+    # if name == "CIFAR-100":
+    #     start = 0.01
+    #     end = 0.0104
+    if name == "Healthy Chest X-Rays(Gender)":
+        start = 0.5
+        end = 0.52
     gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
-    X1 = cifar[:, 2]
+    X1 = ourIn[:, 2]
     auprNew = 0.0
     recallTemp = 1.0
     for delta in np.arange(start, end, gap):
@@ -189,17 +209,20 @@ def auprOut(name):
     # calculate the AUPR
     # calculate baseline
     T = 1
-    cifar = np.loadtxt('./softmax_scores/confidence_Base_In.txt', delimiter=',')
+    baseIn = np.loadtxt('./softmax_scores/confidence_Base_In.txt', delimiter=',')
     other = np.loadtxt('./softmax_scores/confidence_Base_Out.txt', delimiter=',')
-    if name == "CIFAR-10":
-        start = 0.1
-        end = 1
-    if name == "CIFAR-100":
-        start = 0.01
+    # if name == "CIFAR-10":
+    #     start = 0.1
+    #     end = 1
+    # if name == "CIFAR-100":
+    #     start = 0.01
+    #     end = 1
+    if name == "Healthy Chest X-Rays(Gender)":
+        start = 0.5
         end = 1
     gap = (end - start) / 100000
     Y1 = other[:, 2]
-    X1 = cifar[:, 2]
+    X1 = baseIn[:, 2]
     auprBase = 0.0
     recallTemp = 1.0
     for delta in np.arange(end, start, -gap):
@@ -214,18 +237,21 @@ def auprOut(name):
 
     # calculate our algorithm
     T = 1000
-    cifar = np.loadtxt('./softmax_scores/confidence_Our_In.txt', delimiter=',')
+    ourIn = np.loadtxt('./softmax_scores/confidence_Our_In.txt', delimiter=',')
     other = np.loadtxt('./softmax_scores/confidence_Our_Out.txt', delimiter=',')
-    if name == "CIFAR-10":
-        start = 0.1
-        end = 0.12
-    if name == "CIFAR-100":
-        start = 0.01
-        end = 0.0104
+    # if name == "CIFAR-10":
+    #     start = 0.1
+    #     end = 0.12
+    # if name == "CIFAR-100":
+    #     start = 0.01
+    #     end = 0.0104
+    if name == "Healthy Chest X-Rays(Gender)":
+        start = 0.5
+        end = 0.52
     gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
-    X1 = cifar[:, 2]
+    X1 = ourIn[:, 2]
     auprNew = 0.0
     recallTemp = 1.0
     for delta in np.arange(end, start, -gap):
@@ -244,18 +270,21 @@ def detection(name):
     # calculate the minimum detection error
     # calculate baseline
     T = 1
-    cifar = np.loadtxt('./softmax_scores/confidence_Base_In.txt', delimiter=',')
+    baseIn = np.loadtxt('./softmax_scores/confidence_Base_In.txt', delimiter=',')
     other = np.loadtxt('./softmax_scores/confidence_Base_Out.txt', delimiter=',')
-    if name == "CIFAR-10":
-        start = 0.1
-        end = 1
-    if name == "CIFAR-100":
-        start = 0.01
+    # if name == "CIFAR-10":
+    #     start = 0.1
+    #     end = 1
+    # if name == "CIFAR-100":
+    #     start = 0.01
+    #     end = 1
+    if name == "Healthy Chest X-Rays(Gender)":
+        start = 0.5
         end = 1
     gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
-    X1 = cifar[:, 2]
+    X1 = baseIn[:, 2]
     errorBase = 1.0
     for delta in np.arange(start, end, gap):
         tpr = np.sum(np.sum(X1 < delta)) / np.float(len(X1))
@@ -264,18 +293,21 @@ def detection(name):
 
     # calculate our algorithm
     T = 1000
-    cifar = np.loadtxt('./softmax_scores/confidence_Our_In.txt', delimiter=',')
+    ourIn = np.loadtxt('./softmax_scores/confidence_Our_In.txt', delimiter=',')
     other = np.loadtxt('./softmax_scores/confidence_Our_Out.txt', delimiter=',')
-    if name == "CIFAR-10":
-        start = 0.1
-        end = 0.12
-    if name == "CIFAR-100":
-        start = 0.01
-        end = 0.0104
+    # if name == "CIFAR-10":
+    #     start = 0.1
+    #     end = 0.12
+    # if name == "CIFAR-100":
+    #     start = 0.01
+    #     end = 0.0104
+    if name == "Healthy Chest X-Rays(Gender)":
+        start = 0.5
+        end = 0.52
     gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
-    X1 = cifar[:, 2]
+    X1 = ourIn[:, 2]
     errorNew = 1.0
     for delta in np.arange(start, end, gap):
         tpr = np.sum(np.sum(X1 < delta)) / np.float(len(X1))
@@ -286,18 +318,23 @@ def detection(name):
 
 
 def metric(nn, data):
-    if nn == "densenet10" or nn == "wideresnet10": indis = "CIFAR-10"
-    if nn == "densenet100" or nn == "wideresnet100": indis = "CIFAR-100"
-    if nn == "densenet10" or nn == "densenet100": nnStructure = "DenseNet-BC-100"
-    if nn == "wideresnet10" or nn == "wideresnet100": nnStructure = "Wide-ResNet-28-10"
+    # if nn == "densenet10" or nn == "wideresnet10": indis = "CIFAR-10"
+    # if nn == "densenet100" or nn == "wideresnet100": indis = "CIFAR-100"
+    # if nn == "densenet10" or nn == "densenet100": nnStructure = "DenseNet-BC-100"
+    # if nn == "wideresnet10" or nn == "wideresnet100": nnStructure = "Wide-ResNet-28-10"
 
-    if data == "Imagenet": dataName = "Tiny-ImageNet (crop)"
-    if data == "Imagenet_resize": dataName = "Tiny-ImageNet (resize)"
-    if data == "LSUN": dataName = "LSUN (crop)"
-    if data == "LSUN_resize": dataName = "LSUN (resize)"
-    if data == "iSUN": dataName = "iSUN"
-    if data == "Gaussian": dataName = "Gaussian noise"
-    if data == "Uniform": dataName = "Uniform Noise"
+    if nn == "checkpoint": indis = "Healthy Chest X-Rays(Gender)"
+    if nn == "checkpoint": nnStructure = "DenseNet-BC-50"
+
+    # if data == "Imagenet": dataName = "Tiny-ImageNet (crop)"
+    # if data == "Imagenet_resize": dataName = "Tiny-ImageNet (resize)"
+    # if data == "LSUN": dataName = "LSUN (crop)"
+    # if data == "LSUN_resize": dataName = "LSUN (resize)"
+    # if data == "iSUN": dataName = "iSUN"
+    # if data == "Gaussian": dataName = "Gaussian noise"
+    # if data == "Uniform": dataName = "Uniform Noise"
+
+    if data == "testsetout": dataName = "Unhealthy Chest X-Rays"
     fprBase, fprNew = tpr95(indis)
     errorBase, errorNew = detection(indis)
     aurocBase, aurocNew = auroc(indis)

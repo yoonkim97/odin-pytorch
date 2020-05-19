@@ -102,3 +102,4 @@ def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
     #     m.metric(nnName, dataName)
 
     d.testData(model, criterion, CUDA_DEVICE, testloaderIn, testloaderOut, nnName, epsilon, temperature)
+    m.metric(nnName, dataName)
