@@ -74,7 +74,7 @@ def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
     #     testloaderOut = torch.utils.data.DataLoader(testsetout, batch_size=1,
     #                                                 shuffle=False, num_workers=2)
 
-    train_test_dir = '/home/yoon/jyk416/OneClassDenseNet/data/train2'
+    train_test_dir = '/home/yoon/jyk416/odin-pytorch/data/train2'
     if nnName == "model46":
         testset = torchvision.datasets.ImageFolder(train_test_dir, transform=transform_test)
         testloaderIn = torch.utils.data.DataLoader(testset, batch_size=1, shuffle=False, num_workers=2)
