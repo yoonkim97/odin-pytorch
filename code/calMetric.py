@@ -33,7 +33,7 @@ def tpr95(name):
     #     start = 0.01
     #     end = 1
 
-    if name == "Healthy Chest X-Rays(Gender)":
+    if name == "Healthy Chest X-Rays(View Position)":
         start = 0.5
         end = 1
 
@@ -61,7 +61,7 @@ def tpr95(name):
     # if name == "CIFAR-100":
     #     start = 0.01
     #     end = 0.0104
-    if name == "Healthy Chest X-Rays(Gender)":
+    if name == "Healthy Chest X-Rays(View Position)":
         start = 0.5
         end = 0.52
     gap = (end - start) / 100000
@@ -93,7 +93,7 @@ def auroc(name):
     # if name == "CIFAR-100":
     #     start = 0.01
     #     end = 1
-    if name == "Healthy Chest X-Rays(Gender)":
+    if name == "Healthy Chest X-Rays(View Position)":
         start = 0.5
         end = 1
     gap = (end - start) / 100000
@@ -118,7 +118,7 @@ def auroc(name):
     # if name == "CIFAR-100":
     #     start = 0.01
     #     end = 0.0104
-    if name == "Healthy Chest X-Rays(Gender)":
+    if name == "Healthy Chest X-Rays(View Position)":
         start = 0.5
         end = 0.52
     gap = (end - start) / 100000
@@ -148,7 +148,7 @@ def auprIn(name):
     # if name == "CIFAR-100":
     #     start = 0.01
     #     end = 1
-    if name == "Healthy Chest X-Rays(Gender)":
+    if name == "Healthy Chest X-Rays(View Position)":
         start = 0.5
         end = 1
     gap = (end - start) / 100000
@@ -182,7 +182,7 @@ def auprIn(name):
     # if name == "CIFAR-100":
     #     start = 0.01
     #     end = 0.0104
-    if name == "Healthy Chest X-Rays(Gender)":
+    if name == "Healthy Chest X-Rays(View Position)":
         start = 0.5
         end = 0.52
     gap = (end - start) / 100000
@@ -217,7 +217,7 @@ def auprOut(name):
     # if name == "CIFAR-100":
     #     start = 0.01
     #     end = 1
-    if name == "Healthy Chest X-Rays(Gender)":
+    if name == "Healthy Chest X-Rays(View Position)":
         start = 0.5
         end = 1
     gap = (end - start) / 100000
@@ -245,7 +245,7 @@ def auprOut(name):
     # if name == "CIFAR-100":
     #     start = 0.01
     #     end = 0.0104
-    if name == "Healthy Chest X-Rays(Gender)":
+    if name == "Healthy Chest X-Rays(View Position)":
         start = 0.5
         end = 0.52
     gap = (end - start) / 100000
@@ -278,7 +278,7 @@ def detection(name):
     # if name == "CIFAR-100":
     #     start = 0.01
     #     end = 1
-    if name == "Healthy Chest X-Rays(Gender)":
+    if name == "Healthy Chest X-Rays(View Position)":
         start = 0.5
         end = 1
     gap = (end - start) / 100000
@@ -301,7 +301,7 @@ def detection(name):
     # if name == "CIFAR-100":
     #     start = 0.01
     #     end = 0.0104
-    if name == "Healthy Chest X-Rays(Gender)":
+    if name == "Healthy Chest X-Rays(View Position)":
         start = 0.5
         end = 0.52
     gap = (end - start) / 100000
@@ -323,7 +323,7 @@ def metric(nn, data):
     # if nn == "densenet10" or nn == "densenet100": nnStructure = "DenseNet-BC-100"
     # if nn == "wideresnet10" or nn == "wideresnet100": nnStructure = "Wide-ResNet-28-10"
 
-    if nn == "checkpoint": indis = "Healthy Chest X-Rays(Gender)"
+    if nn == "checkpoint": indis = "Healthy Chest X-Rays(View Position)"
     if nn == "checkpoint": nnStructure = "DenseNet-BC-50"
 
     # if data == "Imagenet": dataName = "Tiny-ImageNet (crop)"
