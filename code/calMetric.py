@@ -323,8 +323,8 @@ def metric(nn, data):
     # if nn == "densenet10" or nn == "densenet100": nnStructure = "DenseNet-BC-100"
     # if nn == "wideresnet10" or nn == "wideresnet100": nnStructure = "Wide-ResNet-28-10"
 
-    if nn == "checkpoint": indis = "Healthy Chest X-Rays(View Position)"
-    if nn == "checkpoint": nnStructure = "DenseNet-BC-50"
+    if nn == "model46": indis = "Healthy Chest X-Rays(View Position)"
+    if nn == "model46": nnStructure = "DenseNet-BC-50"
 
     # if data == "Imagenet": dataName = "Tiny-ImageNet (crop)"
     # if data == "Imagenet_resize": dataName = "Tiny-ImageNet (resize)"
