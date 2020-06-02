@@ -129,8 +129,8 @@ def testData(net1, criterion, CUDA_DEVICE, testloader10, testloader, nnName, noi
         nnOutputs = nnOutputs - np.max(nnOutputs)
         nnOutputs = np.exp(nnOutputs)/np.sum(np.exp(nnOutputs))
         g2.write("{}, {}, {}\n".format(temper, noiseMagnitude1, np.max(nnOutputs)))
-        if j % 100 == 99:
-            print("{:4}/{:4} images processed, {:.1f} seconds used.".format(j+1-1000, N-1000, time.time()-t0))
-            t0 = time.time()
+        # if j % 100 == 99:
+        print("{:4}/{:4} images processed, {:.1f} seconds used.".format(j+1, 316, time.time()-t0))
+        t0 = time.time()
 
-        if j== N-1: break
+        # if j== N-1: break
