@@ -323,8 +323,8 @@ def metric(nn, data):
     # if nn == "densenet10" or nn == "densenet100": nnStructure = "DenseNet-BC-100"
     # if nn == "wideresnet10" or nn == "wideresnet100": nnStructure = "Wide-ResNet-28-10"
 
-    if nn == "model46": indis = "Healthy Chest X-Rays(View Position)"
-    if nn == "model46": nnStructure = "DenseNet-BC-50"
+    if nn == "model73": indis = "Healthy Chest X-Rays(View Position)"
+    if nn == "model73": nnStructure = "DenseNet-BC-50"
 
     # if data == "Imagenet": dataName = "Tiny-ImageNet (crop)"
     # if data == "Imagenet_resize": dataName = "Tiny-ImageNet (resize)"
@@ -334,7 +334,7 @@ def metric(nn, data):
     # if data == "Gaussian": dataName = "Gaussian noise"
     # if data == "Uniform": dataName = "Uniform Noise"
 
-    if data == "testsetout": dataName = "Unhealthy Chest X-Rays"
+    if data == "testsetout3": dataName = "Unhealthy Chest X-Rays"
     fprBase, fprNew = tpr95(indis)
     errorBase, errorNew = detection(indis)
     aurocBase, aurocNew = auroc(indis)
