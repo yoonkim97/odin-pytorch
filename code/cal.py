@@ -45,7 +45,7 @@ transform = transforms.Compose([
 
 criterion = nn.CrossEntropyLoss()
 
-def DenseNetBC_25_12():
+def DenseNetBC_50_12():
     return DenseNet3(depth=50, num_classes=2, growth_rate=12, reduction=0.5, bottleneck=True, dropRate=0.2)
 
 def recursion_change_bn(module):
@@ -57,7 +57,7 @@ def recursion_change_bn(module):
     return module
 
 def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
-    model = DenseNetBC_25_12()
+    model = DenseNetBC_50_12()
     model.load_state_dict(torch.load("../models_2_50_256/{}.pth".format(nnName)))
     optimizer1 = optim.SGD(model.parameters(), lr=0, momentum=0)
     for i, (name, module) in enumerate(model._modules.items()):
