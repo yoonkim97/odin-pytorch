@@ -57,6 +57,7 @@ def recursion_change_bn(module):
     return module
 
 def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
+    global testloaderIn
     model = DenseNetBC_25_12()
     model.load_state_dict(torch.load("../models_4_25/{}.pth".format(nnName)))
     optimizer1 = optim.SGD(model.parameters(), lr=0, momentum=0)
