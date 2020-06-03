@@ -336,7 +336,7 @@ def metric(nn, data):
     # if data == "Uniform": dataName = "Uniform Noise"
 
     if data == "testsetout3": dataName = "Unhealthy Chest X-Rays"
-    fprBase, fprNew = tpr95(indis)
+    # fprBase, fprNew = tpr95(indixs)
     errorBase, errorNew = detection(indis)
     aurocBase, aurocNew = auroc(indis)
     auprinBase, auprinNew = auprIn(indis)
@@ -346,7 +346,7 @@ def metric(nn, data):
     print("{:31}{:>22}".format("Out-of-distribution dataset:", dataName))
     print("")
     print("{:>34}{:>19}".format("Baseline", "Our Method"))
-    print("{:20}{:13.1f}%{:>18.1f}% ".format("FPR at TPR 95%:", fprBase * 100, fprNew * 100))
+    # print("{:20}{:13.1f}%{:>18.1f}% ".format("FPR at TPR 95%:", fprBase * 100, fprNew * 100))
     print("{:20}{:13.1f}%{:>18.1f}%".format("Detection error:", errorBase * 100, errorNew * 100))
     print("{:20}{:13.1f}%{:>18.1f}%".format("AUROC:", aurocBase * 100, aurocNew * 100))
     print("{:20}{:13.1f}%{:>18.1f}%".format("AUPR In:", auprinBase * 100, auprinNew * 100))
