@@ -57,7 +57,6 @@ def recursion_change_bn(module):
     return module
 
 def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
-    global testloaderIn
     model = DenseNetBC_25_12()
     model.load_state_dict(torch.load("../models_4_25/{}.pth".format(nnName)))
     optimizer1 = optim.SGD(model.parameters(), lr=0, momentum=0)
@@ -76,7 +75,7 @@ def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
     #                                                 shuffle=False, num_workers=2)
 
     train_test_dir = '/vol/bitbucket/jyk416/odin-pytorch/data/train3'
-    if nnName == "model73":
+    if nnName == "model83":
         testset = torchvision.datasets.ImageFolder(train_test_dir, transform=transform_test)
         testloaderIn = torch.utils.data.DataLoader(testset, batch_size=1, shuffle=False, num_workers=2)
 
