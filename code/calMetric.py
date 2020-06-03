@@ -323,8 +323,8 @@ def metric(nn, data):
     # if nn == "densenet10" or nn == "densenet100": nnStructure = "DenseNet-BC-100"
     # if nn == "wideresnet10" or nn == "wideresnet100": nnStructure = "Wide-ResNet-28-10"
 
-    if nn == "model27": indis = "Chest X-Rays without Cardiomegaly"
-    if nn == "model27": nnStructure = "DenseNet-BC-50(Batch Size: 2, Image Size: 512)"
+    if nn == "model82": indis = "Chest X-Rays without Cardiomegaly"
+    if nn == "model82": nnStructure = "DenseNet-BC-50(Batch Size: 2, Image Size: 512)"
 
     # if data == "Imagenet": dataName = "Tiny-ImageNet (crop)"
     # if data == "Imagenet_resize": dataName = "Tiny-ImageNet (resize)"
@@ -335,7 +335,7 @@ def metric(nn, data):
     # if data == "Uniform": dataName = "Uniform Noise"
 
     if data == "testsetout3": dataName = "Chest X-Rays with Cardiomegaly"
-    # fprBase, fprNew = tpr95(indis)
+    fprBase, fprNew = tpr95(indis)
     errorBase, errorNew = detection(indis)
     aurocBase, aurocNew = auroc(indis)
     auprinBase, auprinNew = auprIn(indis)
@@ -345,8 +345,9 @@ def metric(nn, data):
     print("{:31}{:>22}".format("Out-of-distribution dataset:", dataName))
     print("")
     print("{:>34}{:>19}".format("Baseline", "Our Method"))
-    # print("{:20}{:13.1f}%{:>18.1f}% ".format("FPR at TPR 95%:", fprBase * 100, fprNew * 100))
+    print("{:20}{:13.1f}%{:>18.1f}% ".format("FPR at TPR 95%:", fprBase * 100, fprNew * 100))
     print("{:20}{:13.1f}%{:>18.1f}%".format("Detection error:", errorBase * 100, errorNew * 100))
     print("{:20}{:13.1f}%{:>18.1f}%".format("AUROC:", aurocBase * 100, aurocNew * 100))
     print("{:20}{:13.1f}%{:>18.1f}%".format("AUPR In:", auprinBase * 100, auprinNew * 100))
     print("{:20}{:13.1f}%{:>18.1f}%".format("AUPR Out:", auproutBase * 100, auproutNew * 100))
+
