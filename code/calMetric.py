@@ -44,9 +44,9 @@ def tpr95(name):
     total = 0.0
     fpr = 0.0
     for delta in np.arange(start, end, gap):
-        print(np.sum(np.sum(X1 >= delta)))
         tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
         error2 = np.sum(np.sum(Y1 > delta)) / np.float(len(Y1))
+        print(error2)
         if tpr <= 0.9505 and tpr >= 0.9495:
             fpr += error2
             total += 1
