@@ -35,29 +35,29 @@ def tpr95(name):
     #     start = 0.01
     #     end = 1
     #
-    # if name == "Chest X-Rays without Cardiomegaly":
-    #     start = 0.5
-    #     end = 1
-    #
-    # gap = (end - start) / 100000
+    if name == "Chest X-Rays without Cardiomegaly":
+        start = 0.5
+        end = 1
+
+    gap = (end - start) / 10000000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
     X1 = baseIn[:, 2]
-    all_score_base = np.concatenate((X1, Y1), 0)
-    all_true_base = np.concatenate((np.ones_like(X1), np.zeros_like(Y1)), 0)
+    # all_score_base = np.concatenate((X1, Y1), 0)
+    # all_true_base = np.concatenate((np.ones_like(X1), np.zeros_like(Y1)), 0)
 
-    fpr_base, tpr_base, thresholds = sklearn.metrics.roc_curve(all_true_base, all_score_base)
-    print(fpr_base, tpr_base)
-    # total = 0.0
-    # fpr = 0.0
-    # for delta in np.arange(start, end, gap):
-    #     tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
-    #     error2 = np.sum(np.sum(Y1 > delta)) / np.float(len(Y1))
-    #     if tpr <= 0.9505 and tpr >= 0.9495:
-    #         fpr += error2
-    #         total += 1
-    # fprBase = fpr / total
-    fprBase = 50
+    # fpr_base, tpr_base, thresholds = sklearn.metrics.roc_curve(all_true_base, all_score_base)
+    # print(fpr_base, tpr_base)
+    total = 0.0
+    fpr = 0.0
+    for delta in np.arange(start, end, gap):
+        tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
+        error2 = np.sum(np.sum(Y1 > delta)) / np.float(len(Y1))
+        if tpr <= 0.9505 and tpr >= 0.9495:
+            fpr += error2
+            total += 1
+    fprBase = fpr / total
+    # fprBase = 50
 
     # calculate our algorithm
     T = 1000
@@ -69,27 +69,27 @@ def tpr95(name):
     # if name == "CIFAR-100":
     #     start = 0.01
     #     end = 0.0104
-    # if name == "Chest X-Rays without Cardiomegaly":
-    #     start = 0.5
-    #     end = 0.500057
-    # gap = (end - start) / 100000
+    if name == "Chest X-Rays without Cardiomegaly":
+        start = 0.5
+        end = 0.501
+    gap = (end - start) / 10000000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     X1 = ourIn[:, 2]
     Y1 = other[:, 2]
-    all_score_out = np.concatenate((X1, Y1), 0)
-    all_true_out = np.concatenate((np.ones_like(X1), np.zeros_like(Y1)), 0)
+    # all_score_out = np.concatenate((X1, Y1), 0)
+    # all_true_out = np.concatenate((np.ones_like(X1), np.zeros_like(Y1)), 0)
 
-    fpr_out, tpr_out, thresholds = sklearn.metrics.roc_curve(all_true_out, all_score_out)
-    # total = 0.0
-    # fpr = 0.0
-    # for delta in np.arange(start, end, gap):
-    #     tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
-    #     error2 = np.sum(np.sum(Y1 > delta)) / np.float(len(Y1))
-    #     if tpr <= 0.9505 and tpr >= 0.9495:
-    #         fpr += error2
-    #         total += 1
-    # fprNew = fpr / total
-    fprNew = 60
+    # fpr_out, tpr_out, thresholds = sklearn.metrics.roc_curve(all_true_out, all_score_out)
+    total = 0.0
+    fpr = 0.0
+    for delta in np.arange(start, end, gap):
+        tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
+        error2 = np.sum(np.sum(Y1 > delta)) / np.float(len(Y1))
+        if tpr <= 0.9505 and tpr >= 0.9495:
+            fpr += error2
+            total += 1
+    fprNew = fpr / total
+    # fprNew = 60
 
     return fprBase, fprNew
 
