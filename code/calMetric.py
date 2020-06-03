@@ -104,7 +104,7 @@ def auroc(name):
     fprTemp = 1.0
     for delta in np.arange(start, end, gap):
         tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
-        fpr = np.sum(np.sum(Y1 > delta)) / np.float(len(Y1))
+        fpr = np.sum(np.sum(Y1 < delta)) / np.float(len(Y1))
         aurocBase += (-fpr + fprTemp) * tpr
         fprTemp = fpr
     aurocBase += fpr * tpr
@@ -129,7 +129,7 @@ def auroc(name):
     fprTemp = 1.0
     for delta in np.arange(start, end, gap):
         tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
-        fpr = np.sum(np.sum(Y1 >= delta)) / np.float(len(Y1))
+        fpr = np.sum(np.sum(Y1 < delta)) / np.float(len(Y1))
         aurocNew += (-fpr + fprTemp) * tpr
         fprTemp = fpr
     aurocNew += fpr * tpr
