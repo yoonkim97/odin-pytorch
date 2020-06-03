@@ -33,7 +33,7 @@ def tpr95(name):
     #     start = 0.01
     #     end = 1
 
-    if name == "Healthy Chest X-Rays(View Position)":
+    if name == "Chest X-Rays without Cardiomegaly":
         start = 0.5
         end = 1
 
@@ -61,7 +61,7 @@ def tpr95(name):
     # if name == "CIFAR-100":
     #     start = 0.01
     #     end = 0.0104
-    if name == "Healthy Chest X-Rays(View Position)":
+    if name == "Chest X-Rays without Cardiomegaly":
         start = 0.5
         end = 0.52
     gap = (end - start) / 100000
@@ -93,7 +93,7 @@ def auroc(name):
     # if name == "CIFAR-100":
     #     start = 0.01
     #     end = 1
-    if name == "Healthy Chest X-Rays(View Position)":
+    if name == "Chest X-Rays without Cardiomegaly":
         start = 0.5
         end = 1
     gap = (end - start) / 100000
@@ -118,7 +118,7 @@ def auroc(name):
     # if name == "CIFAR-100":
     #     start = 0.01
     #     end = 0.0104
-    if name == "Healthy Chest X-Rays(View Position)":
+    if name == "Chest X-Rays without Cardiomegaly":
         start = 0.5
         end = 0.52
     gap = (end - start) / 100000
@@ -148,7 +148,7 @@ def auprIn(name):
     # if name == "CIFAR-100":
     #     start = 0.01
     #     end = 1
-    if name == "Healthy Chest X-Rays(View Position)":
+    if name == "Chest X-Rays without Cardiomegaly":
         start = 0.5
         end = 1
     gap = (end - start) / 100000
@@ -182,7 +182,7 @@ def auprIn(name):
     # if name == "CIFAR-100":
     #     start = 0.01
     #     end = 0.0104
-    if name == "Healthy Chest X-Rays(View Position)":
+    if name == "Chest X-Rays without Cardiomegaly":
         start = 0.5
         end = 0.52
     gap = (end - start) / 100000
@@ -217,7 +217,7 @@ def auprOut(name):
     # if name == "CIFAR-100":
     #     start = 0.01
     #     end = 1
-    if name == "Healthy Chest X-Rays(View Position)":
+    if name == "Chest X-Rays without Cardiomegaly":
         start = 0.5
         end = 1
     gap = (end - start) / 100000
@@ -245,7 +245,7 @@ def auprOut(name):
     # if name == "CIFAR-100":
     #     start = 0.01
     #     end = 0.0104
-    if name == "Healthy Chest X-Rays(View Position)":
+    if name == "Chest X-Rays without Cardiomegaly":
         start = 0.5
         end = 0.52
     gap = (end - start) / 100000
@@ -278,7 +278,7 @@ def detection(name):
     # if name == "CIFAR-100":
     #     start = 0.01
     #     end = 1
-    if name == "Healthy Chest X-Rays(View Position)":
+    if name == "Chest X-Rays without Cardiomegaly":
         start = 0.5
         end = 1
     gap = (end - start) / 100000
@@ -301,7 +301,7 @@ def detection(name):
     # if name == "CIFAR-100":
     #     start = 0.01
     #     end = 0.0104
-    if name == "Healthy Chest X-Rays(View Position)":
+    if name == "Chest X-Rays without Cardiomegaly":
         start = 0.5
         end = 0.52
     gap = (end - start) / 100000
@@ -323,8 +323,8 @@ def metric(nn, data):
     # if nn == "densenet10" or nn == "densenet100": nnStructure = "DenseNet-BC-100"
     # if nn == "wideresnet10" or nn == "wideresnet100": nnStructure = "Wide-ResNet-28-10"
 
-    if nn == "model46": indis = "Healthy Chest X-Rays(View Position)"
-    if nn == "model46": nnStructure = "DenseNet-BC-50"
+    if nn == "model27": indis = "Chest X-Rays without Cardiomegaly"
+    if nn == "model27": nnStructure = "DenseNet-BC-50(Batch Size: 2, Image Size: 512)"
 
     # if data == "Imagenet": dataName = "Tiny-ImageNet (crop)"
     # if data == "Imagenet_resize": dataName = "Tiny-ImageNet (resize)"
@@ -334,7 +334,7 @@ def metric(nn, data):
     # if data == "Gaussian": dataName = "Gaussian noise"
     # if data == "Uniform": dataName = "Uniform Noise"
 
-    if data == "testsetout": dataName = "Unhealthy Chest X-Rays"
+    if data == "testsetout3": dataName = "Chest X-Rays with Cardiomegaly"
     fprBase, fprNew = tpr95(indis)
     errorBase, errorNew = detection(indis)
     aurocBase, aurocNew = auroc(indis)
