@@ -58,7 +58,7 @@ def recursion_change_bn(module):
 
 def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
     model = DenseNetBC_25_12()
-    model.load_state_dict(torch.load("../models_2_25/{}.pth".format(nnName)))
+    model.load_state_dict(torch.load("../models_4_25/{}.pth".format(nnName)))
     optimizer1 = optim.SGD(model.parameters(), lr=0, momentum=0)
     for i, (name, module) in enumerate(model._modules.items()):
         module = recursion_change_bn(model)
@@ -100,5 +100,5 @@ def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
     #     d.testData(net1, criterion, CUDA_DEVICE, testloaderIn, testloaderOut, nnName, dataName, epsilon, temperature)
     #     m.metric(nnName, dataName)
 
-    # d.testData(model, criterion, CUDA_DEVICE, testloaderIn, testloaderOut, nnName, epsilon, temperature)
+    d.testData(model, criterion, CUDA_DEVICE, testloaderIn, testloaderOut, nnName, epsilon, temperature)
     m.metric(nnName, dataName)
