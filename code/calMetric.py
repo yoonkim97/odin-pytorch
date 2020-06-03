@@ -47,9 +47,9 @@ def tpr95(name):
         tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
         error2 = np.sum(np.sum(Y1 > delta)) / np.float(len(Y1))
         print(tpr, error2)
-        if tpr <= 0.9505 and tpr >= 0.9495:
-            fpr += error2
-            total += 1
+        # if tpr <= 0.9505 and tpr >= 0.9495:
+        fpr += error2
+        total += 1
     fprBase = fpr / total
 
     # calculate our algorithm
@@ -336,7 +336,7 @@ def metric(nn, data):
     # if data == "Uniform": dataName = "Uniform Noise"
 
     if data == "testsetout3": dataName = "Unhealthy Chest X-Rays"
-    # fprBase, fprNew = tpr95(indis)
+    fprBase, fprNew = tpr95(indis)
     errorBase, errorNew = detection(indis)
     aurocBase, aurocNew = auroc(indis)
     auprinBase, auprinNew = auprIn(indis)
@@ -346,7 +346,7 @@ def metric(nn, data):
     print("{:31}{:>22}".format("Out-of-distribution dataset:", dataName))
     print("")
     print("{:>34}{:>19}".format("Baseline", "Our Method"))
-    # print("{:20}{:13.1f}%{:>18.1f}% ".format("FPR at TPR 95%:", fprBase * 100, fprNew * 100))
+    print("{:20}{:13.1f}%{:>18.1f}% ".format("FPR at TPR 95%:", fprBase * 100, fprNew * 100))
     print("{:20}{:13.1f}%{:>18.1f}%".format("Detection error:", errorBase * 100, errorNew * 100))
     print("{:20}{:13.1f}%{:>18.1f}%".format("AUROC:", aurocBase * 100, aurocNew * 100))
     print("{:20}{:13.1f}%{:>18.1f}%".format("AUPR In:", auprinBase * 100, auprinNew * 100))
