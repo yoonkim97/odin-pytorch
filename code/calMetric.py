@@ -16,6 +16,8 @@ import torchvision
 import torchvision.transforms as transforms
 # import matplotlib.pyplot as plt
 import numpy as np
+import sklearn
+from sklearn import metrics
 import time
 from scipy import misc
 
@@ -93,21 +95,23 @@ def auroc(name):
     # if name == "CIFAR-100":
     #     start = 0.01
     #     end = 1
-    if name == "Chest X-Rays without Cardiomegaly":
-        start = 0.5
-        end = 1
-    gap = (end - start) / 100000
+    # if name == "Chest X-Rays without Cardiomegaly":
+    #     start = 0.5
+    #     end = 1
+    # gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
-    Y1 = other[:, 2]
     X1 = baseIn[:, 2]
-    aurocBase = 0.0
-    fprTemp = 1.0
-    for delta in np.arange(start, end, gap):
-        tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
-        fpr = np.sum(np.sum(Y1 < delta)) / np.float(len(Y1))
-        aurocBase += (-fpr + fprTemp) * tpr
-        fprTemp = fpr
-    aurocBase += fpr * tpr
+    Y1 = other[:, 2]
+    all_score_base = np.concatenate((X1, Y1), 0)
+    all_true_base = np.concatenate((np.ones_like(X1), np.zeros_like(Y1)), 0)
+    # aurocBase = 0.0
+    # fprTemp = 1.0
+    # for delta in np.arange(start, end, gap):
+    #     tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
+    #     fpr = np.sum(np.sum(Y1 > delta)) / np.float(len(Y1))
+    #     aurocBase += (-fpr + fprTemp) * tpr
+    #     fprTemp = fpr
+    aurocBase = sklearn.metrics.roc_auc_score(all_true_base, all_score_base)
     # calculate our algorithm
     T = 1000
     ourIn = np.loadtxt('./softmax_scores/confidence_Our_In.txt', delimiter=',')
@@ -118,21 +122,23 @@ def auroc(name):
     # if name == "CIFAR-100":
     #     start = 0.01
     #     end = 0.0104
-    if name == "Chest X-Rays without Cardiomegaly":
-        start = 0.5
-        end = 0.500057
-    gap = (end - start) / 100000
+    # if name == "Chest X-Rays without Cardiomegaly":
+    #     start = 0.5
+    #     end = 0.500057
+    # gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
-    Y1 = other[:, 2]
     X1 = ourIn[:, 2]
-    aurocNew = 0.0
-    fprTemp = 1.0
-    for delta in np.arange(start, end, gap):
-        tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
-        fpr = np.sum(np.sum(Y1 < delta)) / np.float(len(Y1))
-        aurocNew += (-fpr + fprTemp) * tpr
-        fprTemp = fpr
-    aurocNew += fpr * tpr
+    Y1 = other[:, 2]
+    all_score_out = np.concatenate((X1, Y1), 0)
+    all_true_out = np.concatenate((np.ones_like(X1), np.zeros_like(Y1)), 0)
+    # aurocNew = 0.0
+    # fprTemp = 1.0
+    # for delta in np.arange(start, end, gap):
+    #     tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
+    #     fpr = np.sum(np.sum(Y1 > delta)) / np.float(len(Y1))
+    #     aurocNew += (-fpr + fprTemp) * tpr
+    #     fprTemp = fpr
+    aurocNew = sklearn.metrics.roc_auc_score(all_true_out, all_score_out)
     return aurocBase, aurocNew
 
 
