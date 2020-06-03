@@ -41,6 +41,8 @@ def tpr95(name):
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
     X1 = baseIn[:, 2]
+    print(Y1)
+
     total = 0.0
     fpr = 0.0
     for delta in np.arange(start, end, gap):
