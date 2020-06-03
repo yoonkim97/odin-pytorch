@@ -336,7 +336,7 @@ def metric(nn, data):
     # if data == "Uniform": dataName = "Uniform Noise"
 
     if data == "testsetout3": dataName = "Unhealthy Chest X-Rays"
-    fprBase, fprNew = tpr95(indis)
+    # fprBase, fprNew = tpr95(indis)
     errorBase, errorNew = detection(indis)
     aurocBase, aurocNew = auroc(indis)
     auprinBase, auprinNew = auprIn(indis)
