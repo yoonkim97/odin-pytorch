@@ -46,7 +46,7 @@ transform = transforms.Compose([
 criterion = nn.CrossEntropyLoss()
 
 def DenseNetBC_25_12():
-    return DenseNet3(depth=25, num_classes=2, growth_rate=12, reduction=0.5, bottleneck=True, dropRate=0.2)
+    return DenseNet3(depth=50, num_classes=2, growth_rate=12, reduction=0.5, bottleneck=True, dropRate=0.2)
 
 def recursion_change_bn(module):
     if isinstance(module, torch.nn.BatchNorm2d):
@@ -58,13 +58,13 @@ def recursion_change_bn(module):
 
 def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
     model = DenseNetBC_25_12()
-    model.load_state_dict(torch.load("../models_2_25/{}.pth".format(nnName)))
+    model.load_state_dict(torch.load("../models_2_50_256/{}.pth".format(nnName)))
     optimizer1 = optim.SGD(model.parameters(), lr=0, momentum=0)
     for i, (name, module) in enumerate(model._modules.items()):
         module = recursion_change_bn(model)
     model.cuda(CUDA_DEVICE)
 
-    transform_test = transforms.Compose([transforms.Resize(512), transforms.ToTensor()])
+    transform_test = transforms.Compose([transforms.Resize(512), transforms.RandomCrop(256), transforms.ToTensor()])
 
     testsetout = torchvision.datasets.ImageFolder("/vol/bitbucket/jyk416/odin-pytorch/data/{}".format(dataName), transform=transform_test)
     testloaderOut = torch.utils.data.DataLoader(testsetout, batch_size=1, shuffle=False, num_workers=2)
@@ -75,7 +75,7 @@ def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
     #                                                 shuffle=False, num_workers=2)
 
     train_test_dir = '/vol/bitbucket/jyk416/odin-pytorch/data/train3'
-    if nnName == "model73":
+    if nnName == "model32":
         testset = torchvision.datasets.ImageFolder(train_test_dir, transform=transform_test)
         testloaderIn = torch.utils.data.DataLoader(testset, batch_size=1, shuffle=False, num_workers=2)
 
@@ -100,5 +100,5 @@ def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
     #     d.testData(net1, criterion, CUDA_DEVICE, testloaderIn, testloaderOut, nnName, dataName, epsilon, temperature)
     #     m.metric(nnName, dataName)
 
-    # d.testData(model, criterion, CUDA_DEVICE, testloaderIn, testloaderOut, nnName, epsilon, temperature)
+    d.testData(model, criterion, CUDA_DEVICE, testloaderIn, testloaderOut, nnName, epsilon, temperature)
     m.metric(nnName, dataName)
