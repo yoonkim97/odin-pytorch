@@ -46,11 +46,11 @@ def tpr95(name):
     for delta in np.arange(start, end, gap):
         tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
         error2 = np.sum(np.sum(Y1 > delta)) / np.float(len(Y1))
-        print(tpr, error2)
         # if tpr <= 0.9505 and tpr >= 0.9495:
         fpr += error2
-        total += 1
-    fprBase = fpr / total
+        print(fpr, total)
+        # total += 1
+    fprBase = fpr / N
 
     # calculate our algorithm
     T = 1000
