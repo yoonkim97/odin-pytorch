@@ -50,7 +50,7 @@ def tpr95(name):
         fpr += error2
         print(fpr, total)
         # total += 1
-    fprBase = fpr / N
+    fprBase = fpr / 316
 
     # calculate our algorithm
     T = 1000
