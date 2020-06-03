@@ -64,7 +64,7 @@ def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
         module = recursion_change_bn(model)
     model.cuda(CUDA_DEVICE)
 
-    transform_test = transforms.Compose([transforms.Resize(512), transforms.ToTensor()])
+    transform_test = transforms.Compose([transforms.Resize(512), transforms.RandomCrop(256), transforms.ToTensor()])
 
     testsetout = torchvision.datasets.ImageFolder("/vol/bitbucket/jyk416/odin-pytorch/data/{}".format(dataName), transform=transform_test)
     testloaderOut = torch.utils.data.DataLoader(testsetout, batch_size=1, shuffle=False, num_workers=2)
