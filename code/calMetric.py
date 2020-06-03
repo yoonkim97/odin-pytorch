@@ -63,7 +63,7 @@ def tpr95(name):
     #     end = 0.0104
     if name == "Chest X-Rays without Cardiomegaly":
         start = 0.5
-        end = 0.500056
+        end = 0.500057
     gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
@@ -120,7 +120,7 @@ def auroc(name):
     #     end = 0.0104
     if name == "Chest X-Rays without Cardiomegaly":
         start = 0.5
-        end = 0.500056
+        end = 0.500057
     gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
@@ -184,7 +184,7 @@ def auprIn(name):
     #     end = 0.0104
     if name == "Chest X-Rays without Cardiomegaly":
         start = 0.5
-        end = 0.500056
+        end = 0.500057
     gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
@@ -247,7 +247,7 @@ def auprOut(name):
     #     end = 0.0104
     if name == "Chest X-Rays without Cardiomegaly":
         start = 0.5
-        end = 0.500056
+        end = 0.500057
     gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
@@ -303,7 +303,7 @@ def detection(name):
     #     end = 0.0104
     if name == "Chest X-Rays without Cardiomegaly":
         start = 0.5
-        end = 0.500056
+        end = 0.500057
     gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
