@@ -53,7 +53,7 @@ def tpr95(name):
     for delta in np.arange(start, end, gap):
         tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
         error2 = np.sum(np.sum(Y1 > delta)) / np.float(len(Y1))
-        if tpr <= 1 and tpr >= 0.9:
+        if tpr <= 0.96 and tpr >= 0.94:
             fpr += error2
             total += 1
     fprBase = fpr / total
@@ -85,7 +85,7 @@ def tpr95(name):
     for delta in np.arange(start, end, gap):
         tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
         error2 = np.sum(np.sum(Y1 > delta)) / np.float(len(Y1))
-        if tpr <= 1.0 and tpr >= 0.9:
+        if tpr <= 0.96 and tpr >= 0.94:
             fpr += error2
             total += 1
     fprNew = fpr / total
