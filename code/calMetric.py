@@ -68,7 +68,7 @@ def tpr95(name):
     #     end = 0.0104
     if name == "Healthy Chest X-Rays(View Position)":
         start = 0.5
-        end = 0.52
+        end = 0.5002
     gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
@@ -132,7 +132,7 @@ def auroc(name):
     #     end = 0.0104
     if name == "Healthy Chest X-Rays(View Position)":
         start = 0.5
-        end = 0.52
+        end = 0.5002
     gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
@@ -200,7 +200,7 @@ def auprIn(name):
     #     end = 0.0104
     if name == "Healthy Chest X-Rays(View Position)":
         start = 0.5
-        end = 0.52
+        end = 0.5002
     gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
@@ -263,7 +263,7 @@ def auprOut(name):
     #     end = 0.0104
     if name == "Healthy Chest X-Rays(View Position)":
         start = 0.5
-        end = 0.52
+        end = 0.5002
     gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
@@ -319,7 +319,7 @@ def detection(name):
     #     end = 0.0104
     if name == "Healthy Chest X-Rays(View Position)":
         start = 0.5
-        end = 0.52
+        end = 0.5002
     gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
@@ -339,8 +339,8 @@ def metric(nn, data):
     # if nn == "densenet10" or nn == "densenet100": nnStructure = "DenseNet-BC-100"
     # if nn == "wideresnet10" or nn == "wideresnet100": nnStructure = "Wide-ResNet-28-10"
 
-    if nn == "model68": indis = "Healthy Chest X-Rays(View Position)"
-    if nn == "model68": nnStructure = "DenseNet-BC-50"
+    if nn == "model98": indis = "Healthy Chest X-Rays(View Position)"
+    if nn == "model98": nnStructure = "DenseNet-BC-50"
 
     # if data == "Imagenet": dataName = "Tiny-ImageNet (crop)"
     # if data == "Imagenet_resize": dataName = "Tiny-ImageNet (resize)"
