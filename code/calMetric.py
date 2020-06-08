@@ -52,7 +52,7 @@ def tpr95(name):
             fpr += error2
             total += 1
     if total == 0:
-        fprBase = 100
+        fprBase = 1
     else:
         fprBase = fpr / total
 
@@ -82,7 +82,7 @@ def tpr95(name):
             fpr += error2
             total += 1
     if total == 0:
-        fprNew = 100
+        fprNew = 1
     else:
         fprNew = fpr / total
 
@@ -137,14 +137,18 @@ def auroc(name):
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
     X1 = ourIn[:, 2]
-    aurocNew = 0.0
-    fprTemp = 1.0
-    for delta in np.arange(start, end, gap):
-        tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
-        fpr = np.sum(np.sum(Y1 >= delta)) / np.float(len(Y1))
-        aurocNew += (-fpr + fprTemp) * tpr
-        fprTemp = fpr
-    aurocNew += fpr * tpr
+    all_score_new = np.concatenate((X1, Y1), 0)
+    all_true_new = np.concatenate((np.ones_like(X1), np.zeros_like(Y1)), 0)
+
+    aurocNew = sklearn.metrics.roc_auc_score(all_true_base, all_score_base)
+    # aurocNew = 0.0
+    # fprTemp = 1.0
+    # for delta in np.arange(start, end, gap):
+    #     tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
+    #     fpr = np.sum(np.sum(Y1 >= delta)) / np.float(len(Y1))
+    #     aurocNew += (-fpr + fprTemp) * tpr
+    #     fprTemp = fpr
+    # aurocNew += fpr * tpr
     return aurocBase, aurocNew
 
 
