@@ -18,6 +18,8 @@ import torchvision.transforms as transforms
 import numpy as np
 import time
 from scipy import misc
+import sklearn
+from sklearn import metrics
 
 
 def tpr95(name):
@@ -46,11 +48,13 @@ def tpr95(name):
     for delta in np.arange(start, end, gap):
         tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
         error2 = np.sum(np.sum(Y1 > delta)) / np.float(len(Y1))
-        # if tpr <= 0.9505 and tpr >= 0.9495:
-        fpr += error2
-        print(fpr, total)
-        # total += 1
-    fprBase = fpr / 316
+        if tpr <= 0.9505 and tpr >= 0.9495:
+            fpr += error2
+            total += 1
+    if total == 0:
+        fprBase = 1
+    else:
+        fprBase = fpr / 316
 
     # calculate our algorithm
     T = 1000
@@ -77,7 +81,10 @@ def tpr95(name):
         if tpr <= 0.9505 and tpr >= 0.9495:
             fpr += error2
             total += 1
-    fprNew = fpr / total
+    if total == 0:
+        fprNew = 1
+    else:
+        fprNew = fpr / total
 
     return fprBase, fprNew
 
@@ -101,14 +108,18 @@ def auroc(name):
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
     X1 = baseIn[:, 2]
-    aurocBase = 0.0
-    fprTemp = 1.0
-    for delta in np.arange(start, end, gap):
-        tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
-        fpr = np.sum(np.sum(Y1 > delta)) / np.float(len(Y1))
-        aurocBase += (-fpr + fprTemp) * tpr
-        fprTemp = fpr
-    aurocBase += fpr * tpr
+    all_score_base = np.concatenate((X1, Y1), 0)
+    all_true_base = np.concatenate((np.ones_like(X1), np.zeros_like(Y1)), 0)
+
+    aurocBase = sklearn.metrics.roc_auc_score(all_true_base, all_score_base)
+    # aurocBase = 0.0
+    # fprTemp = 1.0
+    # for delta in np.arange(start, end, gap):
+    #     tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
+    #     fpr = np.sum(np.sum(Y1 > delta)) / np.float(len(Y1))
+    #     aurocBase += (-fpr + fprTemp) * tpr
+    #     fprTemp = fpr
+    # aurocBase += fpr * tpr
     # calculate our algorithm
     T = 1000
     ourIn = np.loadtxt('./softmax_scores/confidence_Our_In.txt', delimiter=',')
@@ -126,14 +137,18 @@ def auroc(name):
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
     X1 = ourIn[:, 2]
-    aurocNew = 0.0
-    fprTemp = 1.0
-    for delta in np.arange(start, end, gap):
-        tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
-        fpr = np.sum(np.sum(Y1 >= delta)) / np.float(len(Y1))
-        aurocNew += (-fpr + fprTemp) * tpr
-        fprTemp = fpr
-    aurocNew += fpr * tpr
+    all_score_new = np.concatenate((X1, Y1), 0)
+    all_true_new = np.concatenate((np.ones_like(X1), np.zeros_like(Y1)), 0)
+
+    aurocNew = sklearn.metrics.roc_auc_score(all_true_new, all_score_new)
+    # aurocNew = 0.0
+    # fprTemp = 1.0
+    # for delta in np.arange(start, end, gap):
+    #     tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
+    #     fpr = np.sum(np.sum(Y1 >= delta)) / np.float(len(Y1))
+    #     aurocNew += (-fpr + fprTemp) * tpr
+    #     fprTemp = fpr
+    # aurocNew += fpr * tpr
     return aurocBase, aurocNew
 
 
