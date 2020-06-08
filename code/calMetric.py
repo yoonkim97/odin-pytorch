@@ -51,7 +51,10 @@ def tpr95(name):
         if tpr <= 0.9505 and tpr >= 0.9495:
             fpr += error2
             total += 1
-    fprBase = fpr / total
+    if total == 0:
+        fprBase = 100
+    else:
+        fprBase = fpr / total
 
     # calculate our algorithm
     T = 1000
@@ -78,7 +81,10 @@ def tpr95(name):
         if tpr <= 0.9505 and tpr >= 0.9495:
             fpr += error2
             total += 1
-    fprNew = fpr / total
+    if total == 0:
+        fprNew = 100
+    else:
+        fprNew = fpr / total
 
     return fprBase, fprNew
 
@@ -329,8 +335,8 @@ def metric(nn, data):
     # if nn == "densenet10" or nn == "densenet100": nnStructure = "DenseNet-BC-100"
     # if nn == "wideresnet10" or nn == "wideresnet100": nnStructure = "Wide-ResNet-28-10"
 
-    if nn == "model42": indis = "Healthy Chest X-Rays(View Position)"
-    if nn == "model42": nnStructure = "DenseNet-BC-50"
+    if nn == "model72": indis = "Healthy Chest X-Rays(View Position)"
+    if nn == "model72": nnStructure = "DenseNet-BC-50"
 
     # if data == "Imagenet": dataName = "Tiny-ImageNet (crop)"
     # if data == "Imagenet_resize": dataName = "Tiny-ImageNet (resize)"
