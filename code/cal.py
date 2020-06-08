@@ -75,7 +75,7 @@ def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
     #                                                 shuffle=False, num_workers=2)
 
     train_test_dir = '/vol/bitbucket/jyk416/odin-pytorch/data/train3'
-    if nnName == "model32":
+    if nnName == "model57":
         testset = torchvision.datasets.ImageFolder(train_test_dir, transform=transform_test)
         testloaderIn = torch.utils.data.DataLoader(testset, batch_size=1, shuffle=False, num_workers=2)
 
