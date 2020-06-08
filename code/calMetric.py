@@ -352,7 +352,7 @@ def metric(nn, data):
     # if data == "Gaussian": dataName = "Gaussian noise"
     # if data == "Uniform": dataName = "Uniform Noise"
 
-    if data == "data": dataName = "Chest X-Rays with Cardiomegaly"
+    if data == "test": dataName = "Chest X-Rays with Cardiomegaly"
     fprBase, fprNew = tpr95(indis)
     errorBase, errorNew = detection(indis)
     aurocBase, aurocNew = auroc(indis)
