@@ -140,7 +140,7 @@ def auroc(name):
     all_score_new = np.concatenate((X1, Y1), 0)
     all_true_new = np.concatenate((np.ones_like(X1), np.zeros_like(Y1)), 0)
 
-    aurocNew = sklearn.metrics.roc_auc_score(all_true_base, all_score_base)
+    aurocNew = sklearn.metrics.roc_auc_score(all_true_new, all_score_new)
     # aurocNew = 0.0
     # fprTemp = 1.0
     # for delta in np.arange(start, end, gap):
