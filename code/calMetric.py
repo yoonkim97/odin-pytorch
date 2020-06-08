@@ -43,11 +43,6 @@ def tpr95(name):
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
     X1 = baseIn[:, 2]
-    # all_score_base = np.concatenate((X1, Y1), 0)
-    # all_true_base = np.concatenate((np.ones_like(X1), np.zeros_like(Y1)), 0)
-
-    # fpr_base, tpr_base, thresholds = sklearn.metrics.roc_curve(all_true_base, all_score_base)
-    # print(fpr_base, tpr_base)
     total = 0.0
     fpr = 0.0
     for delta in np.arange(start, end, gap):
@@ -56,7 +51,10 @@ def tpr95(name):
         if tpr <= 0.96 and tpr >= 0.94:
             fpr += error2
             total += 1
-    fprBase = fpr / total
+    if total == 0:
+        fprBase = 1
+    else:
+        fprBase = fpr / total
     # fprBase = 50
 
     # calculate our algorithm
@@ -88,7 +86,10 @@ def tpr95(name):
         if tpr <= 0.96 and tpr >= 0.94:
             fpr += error2
             total += 1
-    fprNew = fpr / total
+    if total == 0:
+        fprNew = 1
+    else:
+        fprNew = fpr / total
     # fprNew = 60
 
     return fprBase, fprNew
@@ -340,8 +341,8 @@ def metric(nn, data):
     # if nn == "densenet10" or nn == "densenet100": nnStructure = "DenseNet-BC-100"
     # if nn == "wideresnet10" or nn == "wideresnet100": nnStructure = "Wide-ResNet-28-10"
 
-    if nn == "model82": indis = "Chest X-Rays without Cardiomegaly"
-    if nn == "model82": nnStructure = "DenseNet-BC-50(Batch Size: 2, Image Size: 512)"
+    if nn == "model99": indis = "Chest X-Rays without Cardiomegaly"
+    if nn == "model99": nnStructure = "DenseNet-BC-50(Batch Size: 2, Image Size: 512)"
 
     # if data == "Imagenet": dataName = "Tiny-ImageNet (crop)"
     # if data == "Imagenet_resize": dataName = "Tiny-ImageNet (resize)"

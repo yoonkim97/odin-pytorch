@@ -75,7 +75,7 @@ def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
     #                                                 shuffle=False, num_workers=2)
 
     train_test_dir = '/home/yoon/jyk416/odin-pytorch/data/train3'
-    if nnName == "model82":
+    if nnName == "model99":
         testset = torchvision.datasets.ImageFolder(train_test_dir, transform=transform_test)
         testloaderIn = torch.utils.data.DataLoader(testset, batch_size=1, shuffle=False, num_workers=2)
 
@@ -101,4 +101,4 @@ def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
     #     m.metric(nnName, dataName)
 
     d.testData(model, criterion, CUDA_DEVICE, testloaderIn, testloaderOut, nnName, epsilon, temperature)
-    m.metric(nnName, dataName)
+    # m.metric(nnName, dataName)
