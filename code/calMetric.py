@@ -18,7 +18,8 @@ import torchvision.transforms as transforms
 import numpy as np
 import time
 from scipy import misc
-
+import sklearn
+from sklearn import metrics
 
 def tpr95(name):
     # calculate the falsepositive error when tpr is 95%
@@ -64,7 +65,7 @@ def tpr95(name):
     #     end = 0.0104
     if name == "Healthy Chest X-Rays(View Position)":
         start = 0.5
-        end = 0.52
+        end = 0.5002
     gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
@@ -101,14 +102,18 @@ def auroc(name):
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
     X1 = baseIn[:, 2]
-    aurocBase = 0.0
-    fprTemp = 1.0
-    for delta in np.arange(start, end, gap):
-        tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
-        fpr = np.sum(np.sum(Y1 > delta)) / np.float(len(Y1))
-        aurocBase += (-fpr + fprTemp) * tpr
-        fprTemp = fpr
-    aurocBase += fpr * tpr
+    all_score_base = np.concatenate((X1, Y1), 0)
+    all_true_base = np.concatenate((np.ones_like(X1), np.zeros_like(Y1)), 0)
+
+    aurocBase = sklearn.metrics.roc_auc_score(all_true_base, all_score_base)
+    # aurocBase = 0.0
+    # fprTemp = 1.0
+    # for delta in np.arange(start, end, gap):
+    #     tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
+    #     fpr = np.sum(np.sum(Y1 > delta)) / np.float(len(Y1))
+    #     aurocBase += (-fpr + fprTemp) * tpr
+    #     fprTemp = fpr
+    # aurocBase += fpr * tpr
     # calculate our algorithm
     T = 1000
     ourIn = np.loadtxt('./softmax_scores/confidence_Our_In.txt', delimiter=',')
@@ -121,7 +126,7 @@ def auroc(name):
     #     end = 0.0104
     if name == "Healthy Chest X-Rays(View Position)":
         start = 0.5
-        end = 0.52
+        end = 0.5002
     gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
@@ -185,7 +190,7 @@ def auprIn(name):
     #     end = 0.0104
     if name == "Healthy Chest X-Rays(View Position)":
         start = 0.5
-        end = 0.52
+        end = 0.5002
     gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
@@ -248,7 +253,7 @@ def auprOut(name):
     #     end = 0.0104
     if name == "Healthy Chest X-Rays(View Position)":
         start = 0.5
-        end = 0.52
+        end = 0.5002
     gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
@@ -304,7 +309,7 @@ def detection(name):
     #     end = 0.0104
     if name == "Healthy Chest X-Rays(View Position)":
         start = 0.5
-        end = 0.52
+        end = 0.5002
     gap = (end - start) / 100000
     # f = open("./{}/{}/T_{}.txt".format(nnName, dataName, T), 'w')
     Y1 = other[:, 2]
@@ -336,7 +341,7 @@ def metric(nn, data):
     # if data == "Uniform": dataName = "Uniform Noise"
 
     if data == "testsetout3": dataName = "Unhealthy Chest X-Rays"
-    # fprBase, fprNew = tpr95(indis)
+    fprBase, fprNew = tpr95(indis)
     errorBase, errorNew = detection(indis)
     aurocBase, aurocNew = auroc(indis)
     auprinBase, auprinNew = auprIn(indis)
@@ -346,7 +351,7 @@ def metric(nn, data):
     print("{:31}{:>22}".format("Out-of-distribution dataset:", dataName))
     print("")
     print("{:>34}{:>19}".format("Baseline", "Our Method"))
-    # print("{:20}{:13.1f}%{:>18.1f}% ".format("FPR at TPR 95%:", fprBase * 100, fprNew * 100))
+    print("{:20}{:13.1f}%{:>18.1f}% ".format("FPR at TPR 95%:", fprBase * 100, fprNew * 100))
     print("{:20}{:13.1f}%{:>18.1f}%".format("Detection error:", errorBase * 100, errorNew * 100))
     print("{:20}{:13.1f}%{:>18.1f}%".format("AUROC:", aurocBase * 100, aurocNew * 100))
     print("{:20}{:13.1f}%{:>18.1f}%".format("AUPR In:", auprinBase * 100, auprinNew * 100))
