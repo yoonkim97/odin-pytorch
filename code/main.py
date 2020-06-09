@@ -28,7 +28,7 @@ parser = argparse.ArgumentParser(description='Pytorch Detecting Out-of-distribut
 
 parser.add_argument('--nn', default="model99", type=str,
                     help='neural network name and training set')
-parser.add_argument('--out_dataset', default="data", type=str,
+parser.add_argument('--out_dataset', default="testsetout", type=str,
                     help='out-of-distribution dataset')
 parser.add_argument('--magnitude', default=0.0014, type=float,
                     help='perturbation magnitude')
