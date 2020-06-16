@@ -45,6 +45,7 @@ def tpr95(name):
     X1 = baseIn[:, 2]
     total = 0.0
     fpr = 0.0
+    print("X1", X1)
     for delta in np.arange(start, end, gap):
         tpr = np.sum(np.sum(X1 >= delta)) / np.float(len(X1))
         error2 = np.sum(np.sum(Y1 > delta)) / np.float(len(Y1))
