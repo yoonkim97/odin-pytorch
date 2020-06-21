@@ -58,7 +58,7 @@ def recursion_change_bn(module):
 
 def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
     model = DenseNetBC_50_12()
-    model.load_state_dict(torch.load("../models/{}.pth".format(nnName)))
+    model.load_state_dict(torch.load("../checkpoints_healthy/{}.pth.tar".format(nnName)))
     optimizer1 = optim.SGD(model.parameters(), lr=0, momentum=0)
     for i, (name, module) in enumerate(model._modules.items()):
         module = recursion_change_bn(model)
@@ -75,10 +75,10 @@ def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
     #     testloaderOut = torch.utils.data.DataLoader(testsetout, batch_size=1,
     #                                                 shuffle=False, num_workers=2)
 
-    train_test_dir = '/home/yoon/jyk416/odin-pytorch/data/train3'
-    if nnName == "model104":
+    train_test_dir = '/home/yoon/jyk416/odin-pytorch/data/train'
+    if nnName == "checkpoint":
         testset = torchvision.datasets.ImageFolder(train_test_dir, transform=transform_test)
-        testloaderIn = torch.utils.data.DataLoader(testset, batch_size=1, shuffle=False, num_workers=2)
+        testloaderIn = torch.utils.data.DataLoader(testset, batch_size=1, shuffle=True, num_workers=2)
 
     # if nnName == "densenet10" or nnName == "wideresnet10":
     #     testset = torchvision.datasets.CIFAR10(root='../data', train=False, download=True, transform=transform)
