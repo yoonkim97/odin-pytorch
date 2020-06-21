@@ -58,7 +58,7 @@ def recursion_change_bn(module):
 
 def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
     model = DenseNetBC_50_12()
-    model.load_state_dict(torch.load("../healthy_models/{}.pth.tar".format(nnName)))
+    model.load_state_dict(torch.load("../healthy_models/{}.pth".format(nnName)))
     # checkpoint = torch.load("../checkpoints_healthy/{}.pth.tar".format(nnName))
     # model.load_state_dict(checkpoint['state_dict'])
     # optimizer.load_state_dict(checkpoint['optimizer'])
