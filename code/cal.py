@@ -58,9 +58,9 @@ def recursion_change_bn(module):
 
 def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
     model = DenseNetBC_50_12()
-    # model.load_state_dict(torch.load("../checkpoints_healthy/{}.pth.tar".format(nnName)))
-    checkpoint = torch.load("../checkpoints_healthy/{}.pth.tar".format(nnName))
-    model.load_state_dict(checkpoint['state_dict'])
+    model.load_state_dict(torch.load("../healthy_models/{}.pth.tar".format(nnName)))
+    # checkpoint = torch.load("../checkpoints_healthy/{}.pth.tar".format(nnName))
+    # model.load_state_dict(checkpoint['state_dict'])
     # optimizer.load_state_dict(checkpoint['optimizer'])
     optimizer1 = optim.SGD(model.parameters(), lr=0, momentum=0)
 
@@ -80,7 +80,7 @@ def test(nnName, dataName, CUDA_DEVICE, epsilon, temperature):
     #                                                 shuffle=False, num_workers=2)
 
     train_test_dir = '/home/yoon/jyk416/odin-pytorch/data/train'
-    if nnName == "checkpoint":
+    if nnName == "model_resume36":
         testset = torchvision.datasets.ImageFolder(train_test_dir, transform=transform_test)
         testloaderIn = torch.utils.data.DataLoader(testset, batch_size=1, shuffle=True, num_workers=2)
 
